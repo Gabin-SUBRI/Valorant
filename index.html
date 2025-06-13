@@ -3,219 +3,642 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Présentation Valorant</title>
+    <title>Agents de VALORANT</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap");
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&family=Mandali&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-    <link rel="stylesheet" href="styles.css" />
+      body {
+        font-family: "Rajdhani", sans-serif;
+        overflow-x: hidden;
+        background: #0f1419;
+        color: #fff;
+      }
+
+      .container {
+        scroll-behavior: smooth;
+      }
+
+      /* Section Title */
+      .hero-section {
+        height: 100vh;
+        background: linear-gradient(
+          135deg,
+          #ff4655 0%,
+          #bd3944 50%,
+          #0f1419 100%
+        );
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="1.5" fill="rgba(255,255,255,0.08)"/></svg>');
+        animation: float 20s infinite linear;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        100% {
+          transform: translateY(-100vh) rotate(360deg);
+        }
+      }
+
+      .hero-title {
+        font-family: "Orbitron", monospace;
+        font-size: clamp(2rem, 6vw, 4rem);
+        font-weight: 900;
+        text-align: center;
+        margin-bottom: 2rem;
+        background: linear-gradient(45deg, #fff, #ff4655, #fff);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradient 3s ease infinite;
+        text-shadow: 0 0 30px rgba(255, 70, 85, 0.5);
+      }
+
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: pointer;
+        animation: bounce 2s infinite;
+      }
+
+      .scroll-arrow {
+        width: 30px;
+        height: 30px;
+        border: 2px solid #fff;
+        border-left: none;
+        border-top: none;
+        transform: rotate(45deg);
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateX(-50%) translateY(0);
+        }
+        40% {
+          transform: translateX(-50%) translateY(-10px);
+        }
+        60% {
+          transform: translateX(-50%) translateY(-5px);
+        }
+      }
+
+      /* Agent Sections */
+      .agent-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .agent-section.jett {
+        background: linear-gradient(135deg, #435680 0%, #2a3a5c 100%);
+      }
+
+      .agent-section.phoenix {
+        background: linear-gradient(135deg, #bd431e 0%, #8b2f15 100%);
+      }
+
+      .agent-section.omen {
+        background: linear-gradient(135deg, #182545 0%, #0d1426 100%);
+      }
+
+      .agent-content {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 4rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+        align-items: center;
+      }
+
+      .agent-section.reverse .agent-content {
+        grid-template-columns: 300px 1fr;
+      }
+
+      .agent-info h2 {
+        font-family: "Orbitron", monospace;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .role-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      .agent-description {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .abilities-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .ability-card {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
+        padding: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .ability-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .ability-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(
+          45deg,
+          rgba(255, 255, 255, 0.2),
+          rgba(255, 255, 255, 0.1)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        font-weight: bold;
+        font-size: 1.2rem;
+      }
+
+      .ability-name {
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+        color: #ff4655;
+      }
+
+      .ability-description {
+        font-size: 0.95rem;
+        line-height: 1.4;
+        opacity: 0.8;
+      }
+
+      .agent-image {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .agent-portrait {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        filter: drop-shadow(0 0 20px rgba(255, 70, 85, 0.3));
+        transition: all 0.3s ease;
+      }
+
+      .agent-portrait:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 30px rgba(255, 70, 85, 0.5));
+      }
+
+      /* Navigation */
+      .nav-dots {
+        position: fixed;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1000;
+      }
+
+      .nav-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        margin: 1rem 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .nav-dot.active {
+        background: #ff4655;
+        transform: scale(1.3);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .agent-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 2rem;
+        }
+
+        .agent-section.reverse .agent-content {
+          grid-template-columns: 1fr;
+        }
+
+        .abilities-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .agent-info h2 {
+          font-size: 2rem;
+          justify-content: center;
+        }
+
+        .nav-dots {
+          display: none;
+        }
+      }
+
+      /* Animations d'entrée */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
   </head>
   <body>
     <div class="container">
-      <section class="character" id="title">
-        <div class="title">
-          <h1>Presentation des agents de VALORANT</h1>
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <h1 class="hero-title">AGENTS DE VALORANT</h1>
+        <p
+          style="
+            font-size: 1.2rem;
+            opacity: 0.8;
+            text-align: center;
+            max-width: 600px;
+          "
+        >
+          Découvrez les agents emblématiques du tactical shooter révolutionnaire
+          de Riot Games
+        </p>
+        <div class="scroll-indicator" onclick="scrollToNext()">
+          <div class="scroll-arrow"></div>
         </div>
-        <img src="/img/fleche.png" alt="" id="fleche" />
       </section>
-      <section class="character" id="jett">
-        <div class="content">
-          <div class="titre">
-            <img src="/img/ClasseDuelliste.webp" alt="Dueliste" class="role" />
-            <h1>Jett</h1>
-          </div>
-          <p>
-            Représentante de sa patrie, la Corée du Sud, Jett dispose d'un style
-            de combat basé sur l'agilité et l'esquive, qui lui permet de prendre
-            des risques qu'elle seule peut se permettre de prendre. Elle tourne
-            autour des affrontements et découpe ses ennemis avant même qu'ils ne
-            s'en rendent compte.
-          </p>
-          <h2>Competences</h2>
-          <div class="tableau">
-            <div class="cellule">
-              <img src="/img/capa 1 jett.avif" alt="Image 1" />
-              <h3>COURANT ASCENDANT</h3>
-              <p>Vous vous propulsez INSTANTANÉMENT dans les airs.</p>
-              <video autoplay loop playsinline>
-                <source src="/video/capa 1 jett.mp4" type="video/mp4" />
-                Votre navigateur ne prend pas en charge la balise vidéo.
-              </video>
-            </div>
-            <div class="cellule">
-              <img src="/img/capa 2 jett.avif" alt="Image 2" />
-              <h3>VENT ARRIERE</h3>
-              <p>
-                ACTIVEZ pour préparer une rafale de vent pendant une durée
-                limitée. RÉUTILISEZ la compétence pour vous propulser dans la
-                direction vers laquelle vous vous dirigez. Si vous êtes
-                immobile, vous vous propulsez vers l'avant. Vous regagnez une
-                charge de Vent arrière toutes les deux éliminations.
-              </p>
-              <video autoplay loop playsinline>
-                <source src="/video/capa 2 jett.mp4" type="video/mp4" />
-                Votre navigateur ne prend pas en charge la balise vidéo.
-              </video>
-            </div>
-            <div class="cellule">
-              <img src="/img/capa 3 jett.avif" alt="Image 3" />
-              <h3>AVERSE</h3>
-              <p>
-                Lancez INSTANTANÉMENT un projectile. Lorsqu'il touche une
-                surface, il libère un nuage qui bloque la vision pendant un
-                court instant. MAINTENEZ la touche de la compétence pour courber
-                la fumée dans la direction de votre réticule.
-              </p>
-              <video autoplay loop playsinline>
-                <source src="/video/capa 3 jett.mp4" type="video/mp4" />
-                Votre navigateur ne prend pas en charge la balise vidéo.
-              </video>
-            </div>
-            <div class="cellule">
-              <img src="/img/ult jett.avif" alt="Image 4" />
-              <h3>TEMPETE DE LAMES</h3>
-              <p>
-                ÉQUIPEZ-vous d'un ensemble de couteaux de lancer extrêmement
-                précis. TIREZ pour lancer un seul couteau (se recharge en cas
-                d'élimination). Utilisez le TIR SECONDAIRE pour lancer tous les
-                couteaux restants (ne se recharge pas).
-              </p>
-              <video autoplay loop playsinline>
-                <source src="/video/ult jett.mp4" type="video/mp4" />
-                Votre navigateur ne prend pas en charge la balise vidéo.
-              </video>
+
+      <!-- Jett Section -->
+      <section class="agent-section jett" id="jett">
+        <div class="agent-content">
+          <div class="agent-info fade-in">
+            <h2>
+              <img src="/img/ClasseDuelliste.webp" alt="" />
+              JETT
+            </h2>
+            <p class="agent-description">
+              Représentante de sa patrie, la Corée du Sud, Jett dispose d'un
+              style de combat basé sur l'agilité et l'esquive, qui lui permet de
+              prendre des risques qu'elle seule peut se permettre de prendre.
+            </p>
+
+            <div class="abilities-grid">
+              <div class="ability-card">
+                <img src="/img/capa 1 jett.avif" alt="" />
+                <div class="ability-name">COURANT ASCENDANT</div>
+                <div class="ability-description">
+                  Vous vous propulsez instantanément dans les airs.
+                </div>
+              </div>
+              <div class="ability-card">
+                <img src="/img/capa 2 jett.avif" alt="" />
+                <div class="ability-name">VENT ARRIERE</div>
+                <div class="ability-description">
+                  Préparez une rafale de vent pour vous propulser dans la
+                  direction désirée.
+                </div>
+              </div>
+              <div class="ability-card">
+                <img src="/img/capa 3 jett.avif" alt="" />
+                <div class="ability-name">AVERSE</div>
+                <div class="ability-description">
+                  Lancez un projectile qui libère un nuage bloquant la vision.
+                </div>
+              </div>
+              <div class="ability-card">
+                <img src="/img/ult jett.avif" alt="" />
+                <div class="ability-name">TEMPÊTE DE LAMES</div>
+                <div class="ability-description">
+                  Équipez-vous de couteaux de lancer extrêmement précis.
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <img src="/img/Jett.webp" alt="Jett" />
-      </section>
-      <section class="character" id="phoenix">
-        <img src="/img/Phoneix.png" alt="phoenix" />
-        <div class="content">
-          <div class="titre">
-            <img src="/img/ClasseDuelliste.webp" alt="Dueliste" class="role" />
-            <h1>Phoenix</h1>
-          </div>
-          <p>
-            En provenance du Royaume-Uni, Phoenix illumine le champ de bataille
-            avec ses pouvoirs astraux et son style de combat flamboyant. Peu
-            importe que les renforts arrivent ou non, il fonce au combat quand
-            il le décide.
-          </p>
-          <h2>Competences</h2>
-          <div class="tableau">
-            <div class="cellule">
-              <img src="/img/capa 1 phoenix.avif" alt="Image 1" />
-              <h3>BALLE COURBE</h3>
-              <p>
-                ÉQUIPEZ-vous d'un orbe flamboyant qui explose peu après avoir
-                été lancé, aveuglant tous les joueurs qui le regardent. TIREZ
-                pour courber la trajectoire de l'orbe vers la gauche. Utilisez
-                le TIR SECONDAIRE pour courber la trajectoire de l'orbe vers la
-                droite.
-              </p>
-            </div>
-            <div class="cellule">
-              <img src="/img/capa 2 phoneix.avif" alt="Image 2" />
-              <h3>MAINS BRÛLANTES</h3>
-              <p>
-                ÉQUIPEZ-vous d'une boule de feu. TIREZ pour lancer une boule de
-                feu qui explose après un certain temps ou en touchant le sol,
-                créant une zone enflammée persistante qui blesse les ennemis.
-              </p>
-            </div>
-            <div class="cellule">
-              <img src="/img/capa 3 phoenix.avif" alt="Image 3" />
-              <h3>BRASIER</h3>
-              <p>
-                ÉQUIPEZ-vous d'un mur de feu. TIREZ pour créer une ligne de feu
-                qui se déplace vers l'avant, créant un mur de feu qui bloque la
-                vision et blesse les joueurs qui le traversent. MAINTENEZ LE TIR
-                pour courber le mur dans la direction de votre réticule.
-              </p>
-            </div>
-            <div class="cellule">
-              <img src="/img/ult phoenix.avif" alt="Image 4" />
-              <h3>REVANCHE</h3>
-              <p>
-                Placez INSTANTANÉMENT un marqueur sur votre position. Tant que
-                cette compétence est active, mourir vous renvoie à cette
-                position avec tous vos PV (même chose si la compétence expire).
-              </p>
-            </div>
+          <div class="agent-image fade-in">
+            <img src="/img/Jett.webp" alt="" />
           </div>
         </div>
       </section>
-      <section class="character" id="omen">
-        <div class="content">
-          <div class="titre">
-            <img
-              src="/img/ClasseControleur.webp"
-              alt="Controleur"
-              class="role"
-            />
-            <h1>Omen</h1>
+
+      <!-- Phoenix Section -->
+      <section class="agent-section phoenix reverse" id="phoenix">
+        <div class="agent-content">
+          <div class="agent-image fade-in">
+            <svg
+              class="agent-portrait"
+              viewBox="0 0 200 300"
+              style="background: linear-gradient(135deg, #bd431e, #ff6b3d)"
+            >
+              <circle cx="100" cy="80" r="40" fill="#fff" opacity="0.1" />
+              <rect
+                x="80"
+                y="120"
+                width="40"
+                height="80"
+                fill="#fff"
+                opacity="0.2"
+              />
+              <polygon
+                points="100,50 110,70 130,70 115,85 120,105 100,95 80,105 85,85 70,70 90,70"
+                fill="#ff4655"
+              />
+              <text
+                x="100"
+                y="200"
+                text-anchor="middle"
+                fill="#fff"
+                font-size="16"
+                font-weight="bold"
+              >
+                PHOENIX
+              </text>
+            </svg>
           </div>
-          <p>
-            Véritable fantôme d'un souvenir, Omen chasse dans les ténèbres. Il
-            aveugle les ennemis, se téléporte d'un bout à l'autre du champ de
-            bataille et laisse la peur se répandre parmi ses adversaires qui se
-            demandent qui sera sa prochaine victime.
-          </p>
-          <h2>Competences</h2>
-          <div class="tableau">
-            <div class="cellule">
-              <img src="/img/capa 1 omen.avif" alt="Image 1" />
-              <h3>PARANOÏA</h3>
-              <p>
-                Tirez INSTANTANÉMENT un projectile d'ombre vers l'avant, ce qui
-                réduit brièvement la portée de la vision de tous les joueurs
-                touchés. Ce projectile peut traverser les murs.
-              </p>
-            </div>
-            <div class="cellule">
-              <img src="/img/capa 2 omen.avif" alt="Image 2" />
-              <h3>VOILE SOMBRE</h3>
-              <p>
-                ÉQUIPEZ-vous d'un orbe d'ombre et entrez dans un monde déphasé
-                afin d'y lancer des orbes. APPUYEZ sur la touche de la
-                compétence pour lancer l'orbe à l'endroit marqué, ce qui crée
-                une sphère d'ombre durable qui bloque la vision. MAINTENEZ LE
-                TIR tout en visant pour éloigner le marqueur. MAINTENEZ LE TIR
-                SECONDAIRE tout en visant pour rapprocher le marqueur. APPUYEZ
-                sur RECHARGER pour repasser en visée normale.
-              </p>
-            </div>
-            <div class="cellule">
-              <img src="/img/capa 3 omen.avif" alt="Image 3" />
-              <h3>VOIE DES OMBRES</h3>
-              <p>
-                ÉQUIPEZ-vous d'une compétence de marche des ombres accompagnée
-                d'un indicateur de portée. TIREZ pour commencer une courte
-                canalisation avant de vous téléporter vers l'endroit marqué.
-              </p>
-            </div>
-            <div class="cellule">
-              <img src="/img/capa 4 omen.avif" alt="Image 4" />
-              <h3>DEPUIS LES OMBRES</h3>
-              <p>
-                ÉQUIPEZ-vous d'une carte tactique. TIREZ pour commencer à vous
-                téléporter vers l'endroit sélectionné. Pendant la téléportation,
-                vous apparaissez sous forme d'ombre. Les ennemis peuvent
-                détruire cette ombre pour annuler votre téléportation.
-              </p>
+          <div class="agent-info fade-in">
+            <h2>
+              <div class="role-icon">D</div>
+              PHOENIX
+            </h2>
+            <p class="agent-description">
+              En provenance du Royaume-Uni, Phoenix illumine le champ de
+              bataille avec ses pouvoirs astraux et son style de combat
+              flamboyant.
+            </p>
+
+            <div class="abilities-grid">
+              <div class="ability-card">
+                <div class="ability-icon">◐</div>
+                <div class="ability-name">BALLE COURBE</div>
+                <div class="ability-description">
+                  Orbe flamboyant qui explose et aveugle tous les joueurs qui le
+                  regardent.
+                </div>
+              </div>
+              <div class="ability-card">
+                <div class="ability-icon">🔥</div>
+                <div class="ability-name">MAINS BRÛLANTES</div>
+                <div class="ability-description">
+                  Boule de feu qui crée une zone enflammée persistante blessant
+                  les ennemis.
+                </div>
+              </div>
+              <div class="ability-card">
+                <div class="ability-icon">▬</div>
+                <div class="ability-name">BRASIER</div>
+                <div class="ability-description">
+                  Mur de feu qui bloque la vision et blesse les joueurs qui le
+                  traversent.
+                </div>
+              </div>
+              <div class="ability-card">
+                <div class="ability-icon">♦</div>
+                <div class="ability-name">REVANCHE</div>
+                <div class="ability-description">
+                  Placez un marqueur, mourir vous renvoie à cette position avec
+                  tous vos PV.
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <img src="/img/omen.webp" alt="phoenix" />
+      </section>
+
+      <!-- Omen Section -->
+      <section class="agent-section omen" id="omen">
+        <div class="agent-content">
+          <div class="agent-info fade-in">
+            <h2>
+              <div class="role-icon">C</div>
+              OMEN
+            </h2>
+            <p class="agent-description">
+              Véritable fantôme d'un souvenir, Omen chasse dans les ténèbres. Il
+              aveugle les ennemis, se téléporte et laisse la peur se répandre.
+            </p>
+
+            <div class="abilities-grid">
+              <div class="ability-card">
+                <div class="ability-icon">◊</div>
+                <div class="ability-name">PARANOÏA</div>
+                <div class="ability-description">
+                  Projectile d'ombre qui réduit la portée de vision des joueurs
+                  touchés.
+                </div>
+              </div>
+              <div class="ability-card">
+                <div class="ability-icon">●</div>
+                <div class="ability-name">VOILE SOMBRE</div>
+                <div class="ability-description">
+                  Orbe d'ombre créant une sphère durable qui bloque la vision.
+                </div>
+              </div>
+              <div class="ability-card">
+                <div class="ability-icon">⟲</div>
+                <div class="ability-name">VOIE DES OMBRES</div>
+                <div class="ability-description">
+                  Téléportation courte distance après une brève canalisation.
+                </div>
+              </div>
+              <div class="ability-card">
+                <div class="ability-icon">🗺</div>
+                <div class="ability-name">DEPUIS LES OMBRES</div>
+                <div class="ability-description">
+                  Téléportation longue distance via la carte tactique,
+                  vulnérable pendant le processus.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="agent-image fade-in">
+            <svg
+              class="agent-portrait"
+              viewBox="0 0 200 300"
+              style="background: linear-gradient(135deg, #182545, #2d3a5f)"
+            >
+              <circle cx="100" cy="80" r="40" fill="#fff" opacity="0.05" />
+              <rect
+                x="80"
+                y="120"
+                width="40"
+                height="80"
+                fill="#fff"
+                opacity="0.1"
+              />
+              <circle cx="90" cy="70" r="3" fill="#4a90e2" />
+              <circle cx="110" cy="70" r="3" fill="#4a90e2" />
+              <text
+                x="100"
+                y="200"
+                text-anchor="middle"
+                fill="#fff"
+                font-size="16"
+                font-weight="bold"
+              >
+                OMEN
+              </text>
+            </svg>
+          </div>
+        </div>
       </section>
     </div>
-    <script src="app.js"></script>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+      <div class="nav-dot active" onclick="scrollToSection(0)"></div>
+      <div class="nav-dot" onclick="scrollToSection(1)"></div>
+      <div class="nav-dot" onclick="scrollToSection(2)"></div>
+      <div class="nav-dot" onclick="scrollToSection(3)"></div>
+    </div>
+
+    <script>
+      // Smooth scrolling et navigation
+      const sections = document.querySelectorAll("section");
+      const navDots = document.querySelectorAll(".nav-dot");
+      let currentSection = 0;
+
+      function scrollToSection(index) {
+        currentSection = index;
+        sections[index].scrollIntoView({ behavior: "smooth" });
+        updateNavDots();
+      }
+
+      function scrollToNext() {
+        if (currentSection < sections.length - 1) {
+          scrollToSection(currentSection + 1);
+        }
+      }
+
+      function updateNavDots() {
+        navDots.forEach((dot, index) => {
+          dot.classList.toggle("active", index === currentSection);
+        });
+      }
+
+      // Scroll detection
+      let isScrolling = false;
+      window.addEventListener("wheel", (e) => {
+        if (isScrolling) return;
+
+        isScrolling = true;
+        setTimeout(() => (isScrolling = false), 800);
+
+        if (e.deltaY > 0 && currentSection < sections.length - 1) {
+          scrollToSection(currentSection + 1);
+        } else if (e.deltaY < 0 && currentSection > 0) {
+          scrollToSection(currentSection - 1);
+        }
+      });
+
+      // Intersection Observer pour les animations
+      const observerOptions = {
+        threshold: 0.3,
+        rootMargin: "0px 0px -100px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+
+            // Update current section
+            const sectionIndex = Array.from(sections).indexOf(entry.target);
+            if (sectionIndex !== -1) {
+              currentSection = sectionIndex;
+              updateNavDots();
+            }
+          }
+        });
+      }, observerOptions);
+
+      // Observer les éléments fade-in
+      document.querySelectorAll(".fade-in").forEach((el) => {
+        observer.observe(el);
+      });
+
+      // Observer les sections
+      sections.forEach((section) => {
+        observer.observe(section);
+      });
+
+      // Navigation clavier
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown" && currentSection < sections.length - 1) {
+          scrollToSection(currentSection + 1);
+        } else if (e.key === "ArrowUp" && currentSection > 0) {
+          scrollToSection(currentSection - 1);
+        }
+      });
+    </script>
   </body>
 </html>
