@@ -11,13 +11,14 @@ body {
   overflow-x: hidden;
   background: #0f1419;
   color: #fff;
+  line-height: 1.6;
 }
 
 .container {
   scroll-behavior: smooth;
 }
 
-/* Section Title */
+/* Hero Section */
 .hero-section {
   height: 100vh;
   background: linear-gradient(135deg, #ff4655 0%, #bd3944 50%, #0f1419 100%);
@@ -28,12 +29,7 @@ body {
   position: relative;
   overflow: hidden;
   padding: 2rem;
-}
-
-.role {
-  height: auto;
-  width: clamp(40px, 8vw, 60px);
-  transition: all 0.3s ease;
+  min-height: 600px;
 }
 
 .hero-section::before {
@@ -58,7 +54,7 @@ body {
 
 .hero-title {
   font-family: "Orbitron", monospace;
-  font-size: clamp(2rem, 8vw, 4rem);
+  font-size: clamp(2rem, 6vw, 4rem);
   font-weight: 900;
   text-align: center;
   margin-bottom: 2rem;
@@ -71,7 +67,7 @@ body {
 }
 
 .hero-subtitle {
-  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   opacity: 0.8;
   text-align: center;
   max-width: 600px;
@@ -133,32 +129,28 @@ body {
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding: 2rem 1rem;
+  padding: clamp(1rem, 4vw, 4rem) clamp(1rem, 3vw, 2rem);
 }
 
+/* Couleurs spécifiques par agent */
 .agent-section.jett {
   background: linear-gradient(135deg, #435680 0%, #2a3a5c 100%);
 }
-
 .agent-section.phoenix {
   background: linear-gradient(135deg, #bd431e 0%, #8b2f15 100%);
 }
-
 .agent-section.omen {
   background: linear-gradient(135deg, #182545 0%, #0d1426 100%);
 }
-
 .agent-section.brimstone {
   background: linear-gradient(135deg, #f08a33 0%, #3d1006 100%);
 }
-
 .agent-section.sage {
   background: linear-gradient(135deg, #3be0c3 0%, #16b199 100%);
 }
 .agent-section.viper {
   background: linear-gradient(135deg, #00b441 0%, #274b35 100%);
 }
-
 .agent-section.killjoy {
   background: linear-gradient(135deg, #d4b727 0%, #4f9470 100%);
 }
@@ -166,32 +158,38 @@ body {
   background: linear-gradient(135deg, #5989c7 0%, #131319 100%);
 }
 
+.agent-section.sova {
+  background: linear-gradient(135deg, #6fb0d4 0%, #1a1e26 100%);
+}
+
 .agent-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 5vw, 4rem);
+  gap: clamp(2rem, 4vw, 4rem);
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
   align-items: center;
 }
 
-.agent-section.reverse .agent-content {
-  grid-template-columns: 1fr 1fr;
-}
-
 .agent-info h2 {
   font-family: "Orbitron", monospace;
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.8rem, 4vw, 3rem);
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: clamp(0.5rem, 2vw, 1rem);
   flex-wrap: wrap;
 }
 
+.role {
+  height: auto;
+  width: clamp(35px, 6vw, 60px);
+  transition: all 0.3s ease;
+}
+
 .agent-description {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-size: clamp(1rem, 2vw, 1.2rem);
   line-height: 1.6;
   margin-bottom: 2rem;
   opacity: 0.9;
@@ -199,15 +197,15 @@ body {
 
 .abilities-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
   margin-top: 2rem;
 }
 
 .ability-card {
   background: rgba(0, 0, 0, 0.3);
   border-radius: 15px;
-  padding: 1.5rem;
+  padding: clamp(1rem, 2vw, 1.5rem);
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
@@ -242,8 +240,8 @@ body {
 }
 
 .ability-icon-img {
-  width: 60px;
-  height: 60px;
+  width: clamp(50px, 8vw, 60px);
+  height: clamp(50px, 8vw, 60px);
   border-radius: 50%;
   margin-bottom: 1rem;
   transition: all 0.3s ease;
@@ -256,18 +254,18 @@ body {
 
 .ability-name {
   font-weight: 700;
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.8vw, 1.1rem);
   margin-bottom: 0.5rem;
   color: #ff4655;
 }
 
 .ability-description {
-  font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+  font-size: clamp(0.85rem, 1.5vw, 0.95rem);
   line-height: 1.4;
   opacity: 0.8;
 }
 
-/* Agent Portrait Animations */
+/* Agent Portrait */
 .agent-image {
   position: relative;
   display: flex;
@@ -283,7 +281,7 @@ body {
 
 .agent-portrait {
   width: 100%;
-  max-width: clamp(250px, 40vw, 400px);
+  max-width: clamp(200px, 30vw, 400px);
   height: auto;
   filter: drop-shadow(0 0 20px rgba(255, 70, 85, 0.3));
   transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -420,6 +418,20 @@ body {
     transparent 70%
   );
   animation: cypherDistortion 3s ease-in-out infinite alternate;
+}
+
+.sova .agent-portrait-container.animate {
+  animation: sovaPulse 4s ease-in-out infinite;
+}
+
+.sova .agent-glow.animate {
+  opacity: 1;
+  background: radial-gradient(
+    circle,
+    rgba(111, 176, 212, 0.5) 0%,
+    transparent 70%
+  );
+  animation: sovaEcho 3s ease-in-out infinite alternate;
 }
 
 /* Keyframes pour les animations */
@@ -602,6 +614,29 @@ body {
   }
 }
 
+@keyframes sovaPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: 0.9;
+  }
+}
+
+@keyframes sovaEcho {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-10px) rotate(2deg);
+    opacity: 0.4;
+  }
+}
+
 /* Navigation */
 .nav-dots {
   position: fixed;
@@ -641,10 +676,12 @@ body {
   background: rgba(15, 20, 25, 0.95);
   backdrop-filter: blur(10px);
   display: none;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: center;
   padding: 1rem;
   z-index: 1000;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 0.5rem;
 }
 
 .mobile-nav-btn {
@@ -657,7 +694,8 @@ body {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 0.9rem;
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  white-space: nowrap;
 }
 
 .mobile-nav-btn:hover,
@@ -667,23 +705,33 @@ body {
   transform: translateY(-2px);
 }
 
-/* Responsive Design */
+/* Responsive Design - Breakpoints améliorés */
+
+/* Petits écrans d'ordinateur (1200px à 1024px) */
+@media (max-width: 1200px) and (min-width: 1024px) {
+  .agent-content {
+    max-width: 1200px;
+    gap: 3rem;
+  }
+
+  .agent-portrait {
+    max-width: 300px;
+  }
+
+  .abilities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablettes et petits ordinateurs portables (1024px à 768px) */
 @media (max-width: 1024px) {
   .agent-content {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
     text-align: center;
   }
 
-  .agent-section.reverse .agent-content {
-    grid-template-columns: 1fr;
-  }
-
   .agent-image {
-    order: -1;
-  }
-
-  .agent-section.reverse .agent-image {
     order: -1;
   }
 
@@ -692,30 +740,29 @@ body {
   }
 
   .abilities-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+  }
+
+  .agent-portrait {
+    max-width: 280px;
   }
 }
 
+/* Tablettes portrait (768px à 600px) */
 @media (max-width: 768px) {
   .hero-section {
-    padding: 1rem;
+    padding: 1.5rem;
+    min-height: 500px;
   }
 
   .agent-section {
-    padding: 1rem;
-  }
-
-  .agent-content {
-    gap: 2rem;
+    padding: 2rem 1rem;
   }
 
   .abilities-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
-  }
-
-  .ability-card {
-    padding: 1rem;
   }
 
   .nav-dots {
@@ -727,21 +774,53 @@ body {
   }
 
   .scroll-indicator {
-    bottom: 5rem;
-  }
-
-  .agent-portrait {
-    max-width: 280px;
+    bottom: 6rem;
   }
 }
 
-@media (max-width: 480px) {
+/* Petits écrans (600px à 480px) */
+@media (max-width: 600px) {
   .hero-section {
-    padding: 0.5rem;
+    padding: 1rem;
+    min-height: 450px;
   }
 
   .agent-section {
+    padding: 1.5rem 1rem;
+    min-height: auto;
+  }
+
+  .agent-content {
+    gap: 2rem;
+  }
+
+  .ability-card {
+    padding: 1rem;
+  }
+
+  .mobile-nav {
+    padding: 0.8rem;
+  }
+
+  .mobile-nav-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  .agent-portrait {
+    max-width: 250px;
+  }
+}
+
+/* Très petits écrans (480px et moins) */
+@media (max-width: 480px) {
+  .hero-section {
     padding: 0.5rem;
+    min-height: 400px;
+  }
+
+  .agent-section {
+    padding: 1rem 0.5rem;
   }
 
   .agent-content {
@@ -753,16 +832,23 @@ body {
   }
 
   .mobile-nav-btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
   }
 
   .agent-portrait {
-    max-width: 220px;
+    max-width: 200px;
+  }
+}
+
+/* Amélioration pour les écrans très larges */
+@media (min-width: 1400px) {
+  .agent-content {
+    max-width: 1600px;
   }
 
-  .hero-subtitle {
-    margin-bottom: 2rem;
+  .abilities-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -774,18 +860,6 @@ body {
 }
 
 .fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Animation pour les cartes de capacités */
-.ability-card {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease;
-}
-
-.ability-card.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -805,7 +879,21 @@ body {
 
 /* États de focus pour l'accessibilité */
 .nav-dot:focus,
-.mobile-nav-btn:focus {
+.mobile-nav-btn:focus,
+.scroll-indicator:focus {
   outline: 2px solid #ff4655;
   outline-offset: 2px;
+}
+
+/* Optimisation des hauteurs pour les petits écrans */
+@media (max-height: 600px) {
+  .hero-section {
+    min-height: 100vh;
+    padding: 1rem;
+  }
+
+  .agent-section {
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
 }

@@ -1,25 +1,41 @@
-// Smooth scrolling et navigation
 const sections = document.querySelectorAll("section");
 const navDots = document.querySelectorAll(".nav-dot");
 const mobileNavBtns = document.querySelectorAll(".mobile-nav-btn");
+
 let currentSection = 0;
 let isAnimating = false;
+let scrollNavEnabled = false;
+
+// Vérifie la taille de la fenêtre et active/désactive le scroll
+function checkScreenSizeAndInit() {
+  if (window.innerWidth >= 1400 && window.innerHeight >= 847) {
+    scrollNavEnabled = true;
+  } else {
+    scrollNavEnabled = false;
+  }
+}
+
+// Initialise dès le chargement
+checkScreenSizeAndInit();
+
+// Surveille les changements de taille d’écran
+window.addEventListener("resize", checkScreenSizeAndInit);
 
 function scrollToSection(index) {
-  if (isAnimating) return;
+  if (!scrollNavEnabled || isAnimating) return;
 
   isAnimating = true;
   currentSection = index;
   sections[index].scrollIntoView({ behavior: "smooth" });
   updateNavDots();
 
-  // Délai pour éviter les animations multiples
   setTimeout(() => {
     isAnimating = false;
   }, 800);
 }
 
 function scrollToNext() {
+  if (!scrollNavEnabled) return;
   if (currentSection < sections.length - 1) {
     scrollToSection(currentSection + 1);
   }
@@ -321,3 +337,7 @@ if ("loading" in HTMLImageElement.prototype) {
     }
   });
 }
+
+console.log(
+  `Largeur: ${window.innerWidth}px, Hauteur: ${window.innerHeight}px`
+);
