@@ -129,7 +129,7 @@ body {
   align-items: center;
   position: relative;
   overflow: hidden;
-  padding: clamp(1rem, 4vw, 4rem) clamp(1rem, 3vw, 2rem);
+  padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 3vw, 2rem);
 }
 
 /* Couleurs spécifiques par agent */
@@ -157,7 +157,6 @@ body {
 .agent-section.cypher {
   background: linear-gradient(135deg, #5989c7 0%, #131319 100%);
 }
-
 .agent-section.sova {
   background: linear-gradient(135deg, #6fb0d4 0%, #1a1e26 100%);
 }
@@ -705,29 +704,82 @@ body {
   transform: translateY(-2px);
 }
 
-/* Responsive Design - Breakpoints améliorés */
+/* Responsive Design - Corrections pour petits écrans d'ordinateur */
 
-/* Petits écrans d'ordinateur (1200px à 1024px) */
-@media (max-width: 1200px) and (min-width: 1024px) {
+/* Écrans moyens (1366px à 1200px) - Laptops courants */
+@media (max-width: 1366px) and (min-width: 1200px) {
   .agent-content {
     max-width: 1200px;
     gap: 3rem;
   }
 
+  .abilities-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .agent-portrait {
-    max-width: 300px;
+    max-width: 320px;
+  }
+
+  .agent-section {
+    padding: 3rem 2rem;
+  }
+}
+
+/* Petits écrans d'ordinateur (1200px à 1024px) - Correction principale */
+@media (max-width: 1200px) and (min-width: 1024px) {
+  .agent-content {
+    max-width: 1000px;
+    gap: 2.5rem;
+  }
+
+  .agent-portrait {
+    max-width: 280px;
   }
 
   .abilities-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1.2rem;
+  }
+
+  .ability-card {
+    padding: 1.2rem;
+  }
+
+  .agent-section {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .agent-info h2 {
+    font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+  }
+
+  .agent-description {
+    font-size: clamp(0.95rem, 1.8vw, 1.1rem);
   }
 }
 
-/* Tablettes et petits ordinateurs portables (1024px à 768px) */
-@media (max-width: 1024px) {
+/* Tablettes et petits ordinateurs portables (1024px à 900px) */
+@media (max-width: 1024px) and (min-width: 900px) {
+  .agent-content {
+    gap: 2rem;
+  }
+
+  .abilities-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .agent-portrait {
+    max-width: 260px;
+  }
+}
+
+/* Tablettes en mode paysage (900px à 768px) */
+@media (max-width: 900px) and (min-width: 768px) {
   .agent-content {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
     text-align: center;
   }
 
@@ -741,11 +793,15 @@ body {
 
   .abilities-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
+    gap: 1rem;
   }
 
   .agent-portrait {
     max-width: 280px;
+  }
+
+  .agent-section {
+    padding: 2rem 1.5rem;
   }
 }
 
@@ -758,6 +814,20 @@ body {
 
   .agent-section {
     padding: 2rem 1rem;
+  }
+
+  .agent-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .agent-image {
+    order: -1;
+  }
+
+  .agent-info h2 {
+    justify-content: center;
   }
 
   .abilities-grid {
@@ -791,7 +861,7 @@ body {
   }
 
   .agent-content {
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
   .ability-card {
@@ -824,7 +894,7 @@ body {
   }
 
   .agent-content {
-    gap: 1.5rem;
+    gap: 1.2rem;
   }
 
   .ability-card {
